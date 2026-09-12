@@ -6,6 +6,8 @@ import { clerkMiddleware } from "@clerk/express";
 import { clerkWebhookHandler } from "./webhooks/clerk";
 import { getEnv } from "./lib/env";
 
+import meRouter from "./routes/meRouter"; 
+
 const env = getEnv();
 const app = express();
 
@@ -19,5 +21,7 @@ app.post("/webhooks/clerk", rawJson, (req, res) => {
 app.use(express.json());
 app.use(cors());
 app.use(clerkMiddleware());
+
+app.use("api/me", meRouter);
 
 app.listen(env.PORT, () => console.log("listening on port:", env.PORT));
