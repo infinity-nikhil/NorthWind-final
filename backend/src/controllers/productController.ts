@@ -29,3 +29,32 @@ export async function listProduct( req: Request, res: Response, next: NextFuncti
         next(e);
     }
 }
+
+//Now this function just to fetch a particluar row from the db i.e. category 
+export async function getCategories(_req: Request, res: Response, next: NextFunction) {
+    try {
+        //This is bassically that what else category do we have....and when user cliks on one upper controller gets trigger
+        //It just gives specific row from db such as camera, audia, accessories, home, travel etc
+        const rows = await db.select({ category: products.category }).from(products).where(eq(products.active, true));
+
+        //this is to sort them alphabetically
+        const categories = [...new Set(rows.map((r) => r.category))].sort((a, b) => a.localeCompare(b));
+
+        res.json({ categories });
+    } catch (e) {
+        next(e);
+    }
+}
+
+//If you have came this far then i don't think you should be having probem to understand the logic here 
+export async function getProductBySlug(req: Request, res: Response, next: NextFunction) {
+    try {
+        const [row] = await db.select().from(products).where(eq(products.slug, req.params.slug as string)).limit(1);
+
+        if(!row || !row.active) return res.status(404).json({ error: "Not found"});
+
+        res.json({ product: row});
+    } catch (e) {
+        next(e)
+    }
+}
