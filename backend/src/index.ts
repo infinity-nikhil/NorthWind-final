@@ -7,6 +7,7 @@ import { clerkWebhookHandler } from "./webhooks/clerk";
 import { getEnv } from "./lib/env";
 
 import meRouter from "./routes/meRouter"; 
+import productRouter from "./routes/productRouter";
 
 const env = getEnv();
 const app = express();
@@ -23,5 +24,6 @@ app.use(cors());
 app.use(clerkMiddleware());
 
 app.use("api/me", meRouter);
+app.use("api/products", productRouter);
 
 app.listen(env.PORT, () => console.log("listening on port:", env.PORT));

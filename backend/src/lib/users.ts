@@ -6,7 +6,10 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../db/schema";
 
+//eq means equal btw 
+
 export async function getLocalUser(clerkUserId:string) {
+    //And this query is human readable like youa all can understand it right ?
     const [row] = await db.select().from(users).where(eq(users.clerkUserId, clerkUserId)).limit(1);
     return row;
 }
