@@ -8,6 +8,7 @@ import { getEnv } from "./lib/env";
 
 import meRouter from "./routes/meRouter"; 
 import productRouter from "./routes/productRouter";
+import streamRouter from "./routes/streamRoutes";
 
 const env = getEnv();
 const app = express();
@@ -25,5 +26,6 @@ app.use(clerkMiddleware());
 
 app.use("api/me", meRouter);
 app.use("api/products", productRouter);
+app.use("/api/stream", streamRouter);
 
 app.listen(env.PORT, () => console.log("listening on port:", env.PORT));
