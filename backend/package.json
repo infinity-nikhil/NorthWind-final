@@ -18,6 +18,7 @@
     "dotenv": "^17.4.2",
     "drizzle-orm": "^1.0.0-rc.4",
     "express": "^5.2.1",
+    "standardwebhooks": "^1.1.1",
     "stream-chat": "^9.52.1",
     "zod": "^4.6.1"
   },
